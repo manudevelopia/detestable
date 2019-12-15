@@ -66,13 +66,14 @@ class LibraryTest extends Specification {
     def "Custom field"() {
         given:
         User user = new User()
+        List<Book> newBooks = [new Book(), new Book(), new Book()]
         assert user.getBooksFinal().size() == 1
 
         when:
-        FinalField.set("booksFinal", [new Book(), new Book(), new Book()], user)
+        FinalField.set("booksFinal", newBooks, user)
 
         then:
-        user.getBooksFinal().size() == 3
+        user.getBooksFinal().size() == newBooks.size()
     }
 
     def "Execute method"() {
@@ -80,21 +81,22 @@ class LibraryTest extends Specification {
         User user = new User()
 
         when:
-        def result = PrivateMethod.call("saySomething", user)
+        def result = PrivateMethod.call("sayMyAge", user)
 
         then:
-        result == 33
+        result == Constants.OLD_AGE
     }
 
 
     def "Execute method with args"() {
         given:
         User user = new User()
+        Book book = new Book()
 
         when:
-        def result = PrivateMethod.call("saySomething", user, "one ", "two ")
+        def result = PrivateMethod.call("readBook", user, book)
 
         then:
-        result == "one two "
+        result == "I'm Manuel, and I'm reading 1984 which has 275 pages"
     }
 }
