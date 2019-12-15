@@ -1,4 +1,4 @@
-# deTesstable Lib
+# detesstable
 
 ## why?
-Because sometimes you detest testing something that is hard to test
+Because you detest testing something that is hard to test
