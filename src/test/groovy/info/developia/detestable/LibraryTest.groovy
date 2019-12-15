@@ -1,12 +1,9 @@
-package info.developia.detesstable
+package info.developia.detestable
 
-import info.developia.detesstable.fixtures.Book
-import info.developia.detesstable.fixtures.Constants
-import info.developia.detesstable.fixtures.User
+import info.developia.detestable.fixtures.Book
+import info.developia.detestable.fixtures.Constants
+import info.developia.detestable.fixtures.User
 import spock.lang.Specification
-
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 
 class LibraryTest extends Specification {
 
@@ -17,7 +14,7 @@ class LibraryTest extends Specification {
         assert user.getAgeFinal() == Constants.OLD_AGE
 
         when:
-        Library.set("ageStaticFinal", Constants.NEW_AGE, user as Class<?>)
+        StaticFinal.set("ageStaticFinal", Constants.NEW_AGE, user)
 
         then:
         user.ageStaticFinal == Constants.NEW_AGE
@@ -31,7 +28,7 @@ class LibraryTest extends Specification {
         assert user.getNameStaticFinal() == Constants.OLD_NAME
 
         when:
-        Library.set("nameStaticFinal", Constants.NEW_NAME, user)
+        StaticFinal.set("nameStaticFinal", Constants.NEW_NAME, user)
 
         then:
         user.nameStaticFinal == Constants.NEW_NAME
@@ -45,7 +42,7 @@ class LibraryTest extends Specification {
         assert user.getAgeFinal() == Constants.OLD_AGE
 
         when:
-        Library.setNonStatic("ageFinal", Constants.NEW_AGE, user)
+        FinalField.set("ageFinal", Constants.NEW_AGE, user)
 
         then:
         user.ageFinal == Constants.NEW_AGE
@@ -59,7 +56,7 @@ class LibraryTest extends Specification {
         assert user.getNameFinal() == Constants.OLD_NAME
 
         when:
-        Library.setNonStatic("nameFinal", Constants.NEW_NAME, user)
+        FinalField.set("nameFinal", Constants.NEW_NAME, user)
 
         then:
         user.nameFinal == Constants.NEW_NAME
@@ -72,7 +69,7 @@ class LibraryTest extends Specification {
         assert user.getBooksFinal().size() == 1
 
         when:
-        Library.setNonStatic("booksFinal", [new Book(), new Book(), new Book()], user)
+        FinalField.set("booksFinal", [new Book(), new Book(), new Book()], user)
 
         then:
         user.getBooksFinal().size() == 3
@@ -83,7 +80,7 @@ class LibraryTest extends Specification {
         User user = new User()
 
         when:
-        def result = Library.callMethod("saySomething", user)
+        def result = PrivateMethod.call("saySomething", user)
 
         then:
         result == 33
@@ -95,7 +92,7 @@ class LibraryTest extends Specification {
         User user = new User()
 
         when:
-        def result = Library.callMethod("saySomething", user, "one ", "two ")
+        def result = PrivateMethod.call("saySomething", user, "one ", "two ")
 
         then:
         result == "one two "
