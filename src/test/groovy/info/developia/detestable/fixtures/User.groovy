@@ -8,6 +8,9 @@ class User {
     final String nameFinal = Constants.OLD_NAME
     final Integer ageFinal = Constants.OLD_AGE
 
+    private String namePrivate = Constants.OLD_NAME
+    private Integer agePrivate = Constants.OLD_AGE
+
     final List<Book> booksFinal = [new Book()]
 
     private int sayMyAge() {

@@ -14,6 +14,10 @@ class Detestable {
         StaticFinal.set(fieldName, value, toObj)
     }
 
+    static void setPrivate(String fieldNAme, Object newValue, Object objTo) {
+        info.developia.detestable.field.Private.set(fieldNAme, newValue, objTo)
+    }
+
     static def callPrivate(String methodName, Object object) {
         Private.call(methodName, object)
     }
