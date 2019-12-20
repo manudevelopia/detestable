@@ -13,7 +13,7 @@ class PrivateTest extends Specification{
         assert user.namePrivate == Constants.OLD_NAME
 
         when:
-        Private.set("namePrivate", Constants.NEW_NAME, user)
+        Detestable.setPrivate("namePrivate", Constants.NEW_NAME, user)
 
         then:
         assert user.namePrivate == Constants.NEW_NAME
