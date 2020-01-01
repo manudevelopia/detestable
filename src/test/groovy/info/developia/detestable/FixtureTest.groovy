@@ -1,7 +1,7 @@
 package info.developia.detestable
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+
+import info.developia.detestable.fixture.Fixture
 import info.developia.detestable.fixtures.Order
 import spock.lang.Specification
 
@@ -11,11 +11,11 @@ class FixtureTest extends Specification {
 
     def "Object can be initialized from yaml"() {
         given:
-        def mapper = new ObjectMapper(new YAMLFactory());
-        mapper.findAndRegisterModules()
+        String className = "Order"
 
         when:
-        Order order = mapper.readValue(new File("src/test/resources/Order.yml"), Order)
+        Order order = Fixture.builder(Order)
+        def fixture = Fixture.of(Order).build()
 
         then:
         with(order) {
