@@ -9,20 +9,43 @@ import java.time.LocalDate
 
 class FixtureTest extends Specification {
 
-    def "Object can be initialized from yaml"() {
+    def "should return can be initialized from yaml"() {
         given:
-        String className = "Order"
+
+        LocalDate expectedDate = LocalDate.of(2019, 04, 17)
 
         when:
-        Order order = Fixture.builder(Order)
-        def fixture = Fixture.of(Order).build()
+        def order = Fixture.of(Order)
+                .type("default")
+                .build()
 
         then:
         with(order) {
             orderNo: "A001"
             date:
-            LocalDate.of(2019, 04, 17)
+            expectedDate
             customerName: "Customer, Joe"
         }
     }
+
+//    def "should return a collection of fixtures"() {
+//        given:
+//        LocalDate expectedDate = LocalDate.of(2019, 04, 17)
+//
+//        when:
+//        List<Order> orders = Fixture.of(Order)
+//                .type("default")
+//                .type("error")
+//                .types(["valid", "valid"] as Set<String>)
+//                .build()
+//
+//        then:
+//        orders.size() == 4
+//        with(orders[0]) {
+//            orderNo: "A001"
+//            date:
+//            expectedDate
+//            customerName: "Customer, Joe"
+//        }
+//    }
 }

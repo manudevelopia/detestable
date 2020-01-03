@@ -5,27 +5,28 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 
 class Fixture {
 
-    static final path = "src/test/resources"
-    Class clazz
 
-    static def builder(Class clazz) {
-        // TODO: getName() returns qualified name, maybe can be used as path for yaml
-        String className = clazz.getSimpleName()
-        def mapper = new ObjectMapper(new YAMLFactory());
-        mapper.findAndRegisterModules()
-        return mapper.readValue(new File("$path/$className" + ".yml"), clazz)
-    }
+    private Class clazz
+    private Set<String> fixtureTypes = []
 
     static def of(Class clazz) {
         return new Fixture(clazz: clazz)
     }
 
+    def type(String type) {
+        fixtureTypes.add(type)
+        return this
+    }
+
+    def types(Set<String> types) {
+        this.fixtureTypes = types
+        return this
+    }
+
     def build() {
-        // TODO: getName() returns qualified name, maybe can be used as path for yaml
-        String className = clazz.getSimpleName()
-        def mapper = new ObjectMapper(new YAMLFactory());
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules()
-        return mapper.readValue(new File("$path/$className" + ".yml"), clazz)
+        return mapper.readValue(new File("src/test/resources/Order.yml"), clazz)
     }
 
 }
