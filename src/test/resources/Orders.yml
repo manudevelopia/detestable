@@ -1,10 +1,47 @@
-orderNo: A001
-date: 2019-04-17
-customerName: Customer, Joe
-orderLines:
-  - item: No. 9 Sprockets
-    quantity: 12
-    unitPrice: 1.23
-  - item: Widget (10mm)
-    quantity: 4
-    unitPrice: 3.45
+default:
+  orderNo: A001
+  date: 2019-04-17
+  customerName: Customer, Joe
+  orderLines:
+    - item: No. 9 Sprockets
+      quantity: 12
+      unitPrice: 1.23
+    - item: Widget (10mm)
+      quantity: 4
+      unitPrice: 3.45
+
+error:
+  orderNo: A002
+  date: 2020-10-13
+  customerName: Garcia, Manu
+  orderLines:
+    - item: No. 1 Sprockets
+      quantity: 1
+      unitPrice: 2.3
+    - item: Widget (12mm)
+      quantity: 40
+      unitPrice: 32.45
+
+valid:
+  orderNo: A003
+  date: 2019-04-17
+  customerName: Customer, Joe
+  orderLines:
+    - item: No. 9 Sprockets
+      quantity: 12
+      unitPrice: 1.23
+    - item: Widget (10mm)
+      quantity: 4
+      unitPrice: 3.45
+
+invalid:
+  orderNo: A004
+  date: 2020-10-13
+  customerName: Garcia, Manu
+  orderLines:
+    - item: No. 1 Sprockets
+      quantity: 1
+      unitPrice: 2.3
+    - item: Widget (12mm)
+      quantity: 40
+      unitPrice: 32.45

@@ -15,7 +15,7 @@ class FixtureTest extends Specification {
         LocalDate expectedDate = LocalDate.of(2019, 04, 17)
 
         when:
-        def order = Fixture.of(Order)
+        Order order = Fixture.of(Order)
                 .type("default")
                 .build()
 
@@ -28,24 +28,24 @@ class FixtureTest extends Specification {
         }
     }
 
-//    def "should return a collection of fixtures"() {
-//        given:
-//        LocalDate expectedDate = LocalDate.of(2019, 04, 17)
-//
-//        when:
-//        List<Order> orders = Fixture.of(Order)
-//                .type("default")
-//                .type("error")
-//                .types(["valid", "valid"] as Set<String>)
-//                .build()
-//
-//        then:
-//        orders.size() == 4
-//        with(orders[0]) {
-//            orderNo: "A001"
-//            date:
-//            expectedDate
-//            customerName: "Customer, Joe"
-//        }
-//    }
+    def "should return a collection of fixtures"() {
+        given:
+        LocalDate expectedDate = LocalDate.of(2019, 04, 17)
+
+        when:
+        List<Order> orders = Fixture.of(Order)
+                .type("default")
+                .type("error")
+                .types(["default", "error", "valid", "invalid"] as Set<String>)
+                .build()
+
+        then:
+        orders.size() == 4
+        with(orders[0]) {
+            orderNo: "A001"
+            date:
+            expectedDate
+            customerName: "Customer, Joe"
+        }
+    }
 }
