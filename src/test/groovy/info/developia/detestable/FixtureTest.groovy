@@ -17,14 +17,13 @@ class FixtureTest extends Specification {
         when:
         Order order = Fixture.of(Order)
                 .type("default")
-                .build()
+                .build()[0] as Order
 
         then:
         with(order) {
-            orderNo: "A001"
-            date:
-            expectedDate
-            customerName: "Customer, Joe"
+            orderNo == "919191"
+            date == LocalDate.of(2019, 04, 17)
+            customerName == "Customer, Joe"
         }
     }
 
@@ -34,18 +33,15 @@ class FixtureTest extends Specification {
 
         when:
         List<Order> orders = Fixture.of(Order)
-                .type("default")
-                .type("error")
                 .types(["default", "error", "valid", "invalid"] as Set<String>)
                 .build()
 
         then:
         orders.size() == 4
-        with(orders[0]) {
-            orderNo: "A001"
-            date:
-            expectedDate
-            customerName: "Customer, Joe"
+        with(orders[3]) {
+            orderNo == "A004"
+            date == LocalDate.of(2019, 10, 13)
+            customerName == "Customer, Joe"
         }
     }
 }

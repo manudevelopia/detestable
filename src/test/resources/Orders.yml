@@ -1,5 +1,5 @@
 default:
-  orderNo: A001
+  orderNo: $number(10.2)
   date: 2019-04-17
   customerName: Customer, Joe
   orderLines:
@@ -34,7 +34,7 @@ valid:
       quantity: 4
       unitPrice: 3.45
 
-invalid:
+invalid: &invalid
   orderNo: A004
   date: 2020-10-13
   customerName: Garcia, Manu
@@ -45,3 +45,5 @@ invalid:
     - item: Widget (12mm)
       quantity: 40
       unitPrice: 32.45
+
+revalid: *invalid
