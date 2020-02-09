@@ -11,12 +11,11 @@ class FixtureTest extends Specification {
 
     def "should return can be initialized from yaml"() {
         given:
-
-        LocalDate expectedDate = LocalDate.of(2019, 04, 17)
+        String type = "default"
 
         when:
         Order order = Fixture.of(Order)
-                .type("default")
+                .type(type)
                 .build()[0] as Order
 
         then:
@@ -29,19 +28,19 @@ class FixtureTest extends Specification {
 
     def "should return a collection of fixtures"() {
         given:
-        LocalDate expectedDate = LocalDate.of(2019, 04, 17)
+        Set<String> types = ["default", "error", "valid", "invalid"]
 
         when:
         List<Order> orders = Fixture.of(Order)
-                .types(["default", "error", "valid", "invalid"] as Set<String>)
-                .build()
+                .types(types)
+                .build() as List<Order>
 
         then:
         orders.size() == 4
         with(orders[3]) {
             orderNo == "A004"
-            date == LocalDate.of(2019, 10, 13)
-            customerName == "Customer, Joe"
+            date == LocalDate.of(2020, 10, 13)
+            customerName == "Customer, Jane"
         }
     }
 }

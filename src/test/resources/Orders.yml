@@ -13,7 +13,7 @@ default:
 error:
   orderNo: A002
   date: 2020-10-13
-  customerName: Garcia, Manu
+  customerName: Customer, Jackson
   orderLines:
     - item: No. 1 Sprockets
       quantity: 1
@@ -37,7 +37,7 @@ valid:
 invalid:
   orderNo: A004
   date: 2020-10-13
-  customerName: Garcia, Manu
+  customerName: Customer, Jane
   orderLines:
     - item: No. 1 Sprockets
       quantity: 1

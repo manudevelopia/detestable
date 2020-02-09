@@ -47,9 +47,7 @@ class Fixture {
     }
 
     private def processNode(JsonNode jsonNode) {
-        types.stream()
-                .map { type -> processType(type, jsonNode) }
-                .toList()
+        types.collect { type -> processType(type, jsonNode) }
     }
 
     private def processType(String type, JsonNode jsonNode) {
@@ -60,13 +58,12 @@ class Fixture {
 
     private void processValues(JsonNode jsonNode) {
         jsonNode.each {
-            n -> n.isValueNode() ? processValue(n) : processValues(n)
+            n -> n.isValueNode() ? parseValue(n) : processValues(n)
         }
-
     }
 
-    private def processValue(JsonNode value) {
-        if (value.asText() == '$number') {
+    private def parseValue(JsonNode value) {
+        if (value.asText().contains('$number')) {
             Final.set("_value", "919191", value)
         }
     }
