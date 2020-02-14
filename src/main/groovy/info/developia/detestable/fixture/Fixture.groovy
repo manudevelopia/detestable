@@ -10,10 +10,9 @@ class Fixture {
     private ObjectMapper mapper
     private Class clazz
     private Set<String> types = []
-    private String filename
 
     static def of(Class clazz) {
-        return new Fixture(clazz: clazz, filename: "src/test/resources/Orders.yml")
+        return new Fixture(clazz: clazz)
     }
 
     def type(String type) {
@@ -27,14 +26,14 @@ class Fixture {
     }
 
     def build() {
-        JsonNode nodes = readNodes()
+        JsonNode nodes = readNodes("${clazz.simpleName}s.yml")
         return process(nodes)
     }
 
-    private def readNodes() {
+    private def readNodes(String filename) {
         mapper = new ObjectMapper(new YAMLFactory())
         mapper.findAndRegisterModules()
-        return mapper.readTree(new File(filename))
+        return mapper.readTree(getClass().getClassLoader().getResourceAsStream(filename))
     }
 
     private def process(JsonNode jsonNode) {
@@ -52,19 +51,23 @@ class Fixture {
 
     private def processType(String type, JsonNode jsonNode) {
         JsonNode node = jsonNode.get(type)
-        processValues(node)
+        generatePatternValues(node)
         mapper.convertValue(node, clazz)
     }
 
-    private void processValues(JsonNode jsonNode) {
-        jsonNode.each {
-            n -> n.isValueNode() ? parseValue(n) : processValues(n)
+    private void generatePatternValues(JsonNode jsonNode) {
+        jsonNode.findAll { it.asText().startsWith("\$") }
+                .each { generateValue(it as JsonNode) }
+    }
+
+    private def generateValue(JsonNode valueNode) {
+        if (toGenerate(valueNode.asText())) {
+            def value = ValueGenerator.generate(valueNode.asText())
+            Final.set("_value", value, valueNode)
         }
     }
 
-    private def parseValue(JsonNode value) {
-        if (value.asText().contains('$number')) {
-            Final.set("_value", "919191", value)
-        }
+    boolean toGenerate(String value) {
+        return value.matches("\\\$\\w+(\\(.+\\))?\$")
     }
 }

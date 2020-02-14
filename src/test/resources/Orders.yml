@@ -11,7 +11,7 @@ default:
       unitPrice: 3.45
 
 error:
-  orderNo: A002
+  orderNo: $number(999.66)
   date: 2020-10-13
   customerName: Customer, Jackson
   orderLines:
