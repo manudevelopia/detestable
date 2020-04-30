@@ -4,4 +4,5 @@
 
 
 ## Detestable ...why?
-Because you detest testing something that is hard to test.
+Because you detest testing something that is hard to test, but when the duel arrives is better to 
+have some weapons up your sleeve.
