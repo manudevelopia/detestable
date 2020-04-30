@@ -30,4 +30,16 @@ class MethodPrivateTest extends Specification {
         then:
         result == "I'm Manuel, and I'm reading 1984 which has 275 pages"
     }
+
+    def "A return value should be retrieved after private static method is called with args"() {
+        given:
+        User user = new User()
+        Book book = new Book()
+
+        when:
+        def result = Detestable.callPrivate("readBookStatic", user, book)
+
+        then:
+        result == "I'm Manuel, and I'm reading static 1984 which has 275 pages"
+    }
 }

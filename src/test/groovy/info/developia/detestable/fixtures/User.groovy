@@ -21,4 +21,7 @@ class User {
         return "I'm $Constants.OLD_NAME, and I'm reading $book.titleFinal which has $book.pagesFinal pages"
     }
 
+    private static String readBookStatic(Book book) {
+        return "I'm $Constants.OLD_NAME, and I'm reading static $book.titleFinal which has $book.pagesFinal pages"
+    }
 }
